@@ -28,6 +28,5 @@ public class SearchSelenideTest {
         $("#wiki-tab").click();
         $("#wiki-body > div.markdown-body > ul").$(byTagAndText("a","Soft assertions")).click();
         $("#wiki-body > div.markdown-body").shouldHave(text("Using JUnit5 extend test class"));
-        sleep(5000);
     }
 }
