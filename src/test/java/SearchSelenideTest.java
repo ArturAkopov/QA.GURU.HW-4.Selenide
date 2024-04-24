@@ -26,7 +26,20 @@ public class SearchSelenideTest {
     void searchExampleJUnit5() {
         open("selenide/selenide");
         $("#wiki-tab").click();
-        $("#wiki-body > div.markdown-body > ul").$(byTagAndText("a","Soft assertions")).click();
-        $("#wiki-body > div.markdown-body").shouldHave(text("Using JUnit5 extend test class"));
+        $("#wiki-pages-box").$(withTagAndText("button","Show 3 more pages")).click();
+        $("#wiki-pages-box").$(withTagAndText("a","SoftAssertions")).click();
+        $("#wiki-body > div.markdown-body").shouldHave(text(
+                """
+                        @ExtendWith({SoftAssertsExtension.class})
+                        class Tests {
+                        @Test
+                        void test() {
+                        Configuration.assertionMode = SOFT;
+                        open("page.html");
+
+                        $("#first").should(visible).click();
+                        $("#second").should(visible).click();
+                        }
+                        }"""));
     }
 }
